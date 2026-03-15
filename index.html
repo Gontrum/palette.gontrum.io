@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deine True Spring Palette</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf6f0;
+    --text: #2a1f14;
+    --muted: #7a6a58;
+    --accent: #c87941;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 3rem 2rem 5rem;
+  }
+
+  header {
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .section {
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0d5c5;
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    cursor: default;
+    transition: transform 0.2s ease;
+  }
+
+  .swatch:hover { transform: translateY(-3px); }
+
+  .swatch-color {
+    width: 100%;
+    aspect-ratio: 1 / 0.85;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swatch-color::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    border-radius: 6px;
+  }
+
+  .swatch-name {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .swatch-hex {
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-family: monospace;
+  }
+
+  .swatch-note {
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  /* AVOID section */
+  .avoid-grid {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .avoid-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .avoid-color {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  .avoid-color::after {
+    content: '✕';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+  }
+
+  .avoid-label {
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 70px;
+    line-height: 1.3;
+  }
+
+  .tip-box {
+    background: #f0e8dc;
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.2rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--text);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .tip-box strong { color: var(--accent); font-weight: 500; }
+
+  footer {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 0.68rem;
+    color: #b0a090;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Persönliche Farbanalyse</p>
+  <h1>Deine <em>True Spring</em><br>Farbpalette</h1>
+  <p class="subtitle">Kuratiert für warmen Hautunterton, mittleren Kontrast, blaugrüne Augen mit warmem Kern und goldbraunes Haar.</p>
+</header>
+
+<!-- NEUTRALS -->
+<div class="section">
+  <p class="section-label">Neutrals — Deine Garderobe-Basis</p>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F5ECD7;"></div>
+      <div class="swatch-name">Warm Ivory</div>
+      <div class="swatch-hex">#F5ECD7</div>
+      <div class="swatch-note">Dein Weiß-Ersatz</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E8D5B0;"></div>
+      <div class="swatch-name">Camel Sand</div>
+      <div class="swatch-hex">#E8D5B0</div>
+      <div class="swatch-note">Top-Neutral für dich</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C9A87C;"></div>
+      <div class="swatch-name">Warm Camel</div>
+      <div class="swatch-hex">#C9A87C</div>
+      <div class="swatch-note">Stärkstes Basic</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#A0785A;"></div>
+      <div class="swatch-name">Cognac</div>
+      <div class="swatch-hex">#A0785A</div>
+      <div class="swatch-note">Passt zu deinem Bart</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7A5C42;"></div>
+      <div class="swatch-name">Warm Brown</div>
+      <div class="swatch-hex">#7A5C42</div>
+      <div class="swatch-note">Dein Dunkelton</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#5C4030;"></div>
+      <div class="swatch-name">Chocolate</div>
+      <div class="swatch-hex">#5C4030</div>
+      <div class="swatch-note">Statt Schwarz/Navy</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EARTH & ACCENT -->
+<div class="section">
+  <p class="section-label">Erdtöne & warme Akzente</p>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E8A87C;"></div>
+      <div class="swatch-name">Peach</div>
+      <div class="swatch-hex">#E8A87C</div>
+      <div class="swatch-note">Hebt deinen Hautton</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D4855A;"></div>
+      <div class="swatch-name">Terracotta</div>
+      <div class="swatch-hex">#D4855A</div>
+      <div class="swatch-note">Starker Akzent</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C8603A;"></div>
+      <div class="swatch-name">Burnt Orange</div>
+      <div class="swatch-hex">#C8603A</div>
+      <div class="swatch-note">Leuchtet an dir</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D4A843;"></div>
+      <div class="swatch-name">Golden Yellow</div>
+      <div class="swatch-hex">#D4A843</div>
+      <div class="swatch-note">Dein "Pop"-Ton</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#B8904A;"></div>
+      <div class="swatch-name">Warm Gold</div>
+      <div class="swatch-hex">#B8904A</div>
+      <div class="swatch-note">Harmoniert mit Bart</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#9C7A3C;"></div>
+      <div class="swatch-name">Bronze</div>
+      <div class="swatch-hex">#9C7A3C</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GREENS -->
+<div class="section">
+  <p class="section-label">Grüntöne — betonen deine Augen</p>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#A8B87A;"></div>
+      <div class="swatch-name">Warm Sage</div>
+      <div class="swatch-hex">#A8B87A</div>
+      <div class="swatch-note">Bringt deine Augen raus</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8DA85A;"></div>
+      <div class="swatch-name">Olive Green</div>
+      <div class="swatch-hex">#8DA85A</div>
+      <div class="swatch-note">Sehr stark für dich</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7A9048;"></div>
+      <div class="swatch-name">Moss</div>
+      <div class="swatch-hex">#7A9048</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#5A8C6A;"></div>
+      <div class="swatch-name">Warm Teal</div>
+      <div class="swatch-hex">#5A8C6A</div>
+      <div class="swatch-note">Augen-Komplement</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLUES -->
+<div class="section">
+  <p class="section-label">Blautöne — mit Vorsicht wählen</p>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7B9EBA;"></div>
+      <div class="swatch-name">Warm Sky Blue</div>
+      <div class="swatch-hex">#7B9EBA</div>
+      <div class="swatch-note">Ja — warm genug</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#5A8FA8;"></div>
+      <div class="swatch-name">Cadet Blue</div>
+      <div class="swatch-hex">#5A8FA8</div>
+      <div class="swatch-note">Grenzfall, gedeckt ok</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4A7A90;"></div>
+      <div class="swatch-name">Teal Blue</div>
+      <div class="swatch-hex">#4A7A90</div>
+      <div class="swatch-note">Nur als Akzent</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AVOID -->
+<div class="section">
+  <p class="section-label">Besser meiden</p>
+  <div class="avoid-grid">
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#FFFFFF;"></div>
+      <div class="avoid-label">Reines Weiß</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#9090A0;"></div>
+      <div class="avoid-label">Kühles Grau</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#1A2A5A;"></div>
+      <div class="avoid-label">Navy Blue</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#7B3050;"></div>
+      <div class="avoid-label">Burgundy</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#000000;"></div>
+      <div class="avoid-label">Schwarz</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#8070A0;"></div>
+      <div class="avoid-label">Kühles Lila</div>
+    </div>
+
+    <div class="avoid-swatch">
+      <div class="avoid-color" style="background:#5080C0;"></div>
+      <div class="avoid-label">Eis-Blau</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TIP -->
+<div class="tip-box">
+  <strong>Dein persönlicher Einstieg:</strong> Warm Camel, Cognac und Warm Ivory sind deine sichersten Basics – sie harmonieren direkt mit deinem goldbraunen Bartton und dem warmen Kern deiner Augen. Olive Green und Warm Sage sind die stärksten Farbakzente, die gleichzeitig deine blaugrünen Augen betonen. Schwarz und Navy erden nicht – sie lassen dein Gesicht flach wirken. Warm Brown (#7A5C42) funktioniert als dein "Quasi-Schwarz".
+</div>
+
+<footer>True Spring · Persönliche Palette · Warm · Klar · Mittelkontrast</footer>
+
+</body>
+</html>
